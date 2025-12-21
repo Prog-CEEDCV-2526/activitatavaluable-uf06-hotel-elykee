@@ -132,7 +132,7 @@ public class App {
             case 6:
                 break;
             default:
-                System.out.println("\nNúmero inválido. Inténtelo de nuevo.\n");
+                System.out.println("\nOpció no vàlida. Inténtelo de nuevo.\n");
         }
     }
 
@@ -163,7 +163,7 @@ public class App {
 
         System.out.printf("\nTOTAL: %.2f€\n", precioTotal);
         System.out.println("\n¡Reserva creada con éxito!");
-        System.out.println("\nCódigo de reserva: " + codigo);
+        System.out.println("\nCodi de reserva: " + codigo);
 
         // Guardamos la reserva en el HashMap de reservas
         ArrayList<String> datosReserva = new ArrayList<>();
@@ -482,7 +482,7 @@ public class App {
         // TODO: Mostrar lliures i ocupades
 
         System.out.println("\n===== HABITACIONES DISPONIBLES =====");
-        System.out.printf("\n%8s\t%s\t%s\n", "Tipos", "Libres", "Ocupados");
+        System.out.printf("\n%8s\t%s\t%s\n", "Tipus", "Lliures", "Ocupades");
         mostrarDisponibilitatTipus(TIPUS_ESTANDARD);
         mostrarDisponibilitatTipus(TIPUS_SUITE);
         mostrarDisponibilitatTipus(TIPUS_DELUXE);
@@ -503,7 +503,6 @@ public class App {
         // Caso general
         int codi = codis[0];
         if (reserves.get(codi).get(0).equals(tipus)) {
-            System.out.println("\nCódigo: " + codi);
             mostrarDadesReserva(codi);
         }
 
@@ -567,6 +566,7 @@ public class App {
         // TODO: Imprimir tota la informació d'una reserva
 
         // Acceder a los datos de la reserva con el código
+        System.out.println("\nCódigo: " + codi);
         ArrayList<String> datos = reserves.get(codi);
         System.out.println("\n Tipo de habitación: " + datos.get(0));
         System.out.println(" Coste total: " + datos.get(1) + "€");
