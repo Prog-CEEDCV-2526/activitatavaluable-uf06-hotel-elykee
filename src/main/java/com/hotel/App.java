@@ -219,9 +219,8 @@ public class App {
         }
         System.out.println();
 
-        // Pedir el tipo al usuario
-        int opcionHabitacion;
-        opcionHabitacion = llegirEnter("\nOpción: ");
+        // Pedir tipo de habitación al usuario
+        int opcionHabitacion = llegirEnter("\nOpción: ");
         sc.nextLine();
         if (opcionHabitacion >= 1 && opcionHabitacion <= tiposOrdenados.size()) {
             String tipoSeleccionado = tiposOrdenados.get(opcionHabitacion - 1);
@@ -278,7 +277,7 @@ public class App {
             i++;
         }
 
-        // Pedir tipo al usuario
+        // Pedir tipo de habitación al usuario
         int opcionTipo = llegirEnter("\nSeleccione tipo de habitación: ");
         sc.nextLine();
 
@@ -367,12 +366,13 @@ public class App {
 
             // Verificar si ya alcanzó el límite de servicios (4) antes de permitir agregar
             // otro servicio
-            int opcionServicio;
             if (serviciosSeleccionados.size() >= 4) {
                 System.out.println("\nHa alcanzado el número máximo de servicios (4).\n");
                 break;
             }
-            opcionServicio = llegirEnter("\nSeleccione un servicio: ");
+
+            // Pedir tipo de servicio al usuario
+            int opcionServicio = llegirEnter("\nSeleccione un servicio: ");
             sc.nextLine();
             if (opcionServicio == 0) {
                 break;
@@ -436,6 +436,12 @@ public class App {
      */
     public static int generarCodiReserva() {
         // TODO:
+
+        // Comprobamos si ya existen los 900 códigos posibles (100-999)
+        if (reserves.size() >= 900) {
+            return -1;
+        }
+
         int codigo;
         do {
             codigo = random.nextInt(900) + 100;
@@ -451,9 +457,9 @@ public class App {
         System.out.println("\n===== ALLIBERAR HABITACIÓ =====");
         // TODO: Demanar codi, tornar habitació i eliminar reserva
 
-        int codigo;
-
-        codigo = llegirEnter("\nIntroduzca el código de la reserva a anular: ");
+        // Pedir codigo al usuario
+        int codigo = llegirEnter("\nIntroduzca el código de la reserva a anular: ");
+        sc.nextLine();
         if (!reserves.containsKey(codigo)) {
             System.out.println("\nReserva no encontrada. Inténtelo de nuevo.");
             return;
@@ -491,7 +497,6 @@ public class App {
 
         // Caso base
         if (codis.length == 0) {
-            System.out.println("\n(No hay más reservas de este tipo.)");
             return;
         }
 
@@ -516,14 +521,13 @@ public class App {
         System.out.println("\n===== CONSULTAR RESERVA =====");
         // TODO: Mostrar dades d'una reserva concreta
 
-        int codigo;
-
-        codigo = llegirEnter("\nIntroduzca el código de la reserva: ");
+        // Pedir código al usuario
+        int codigo = llegirEnter("\nIntroduzca el código de la reserva: ");
+        sc.nextLine();
         if (!reserves.containsKey(codigo)) {
             System.out.println("\nNo se ha encontrado ninguna reserva con este código. Inténtelo de nuevo.\n");
             return;
-        }
-        if (reserves.containsKey(codigo)) {
+        } else {
             System.out.println("\nDatos de la reserva:");
             mostrarDadesReserva(codigo);
         }
@@ -551,6 +555,9 @@ public class App {
         // Llamada recursiva que comprueba todas las reservas y muestra las que
         // coinciden con el tipo de habitación
         llistarReservesPerTipus(codigos, tipo);
+
+        // Mensaje final, al terminar de listar reservas del mismo tipo
+        System.out.println("\n(No hay más reservas de este tipo.)");
     }
 
     /**
